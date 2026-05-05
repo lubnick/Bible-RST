@@ -1,0 +1,28 @@
+formulas:
+  Книга: file.folder.replace(/.*\//, "")
+properties:
+  note.book:
+    displayName: Книга
+views:
+  - type: cards
+    name: Ветхий Завет
+    filters:
+      and:
+        - file.folder.contains("Bible-RST/Ветхий")
+    groupBy:
+      property: formula.Книга
+      direction: ASC
+    order:
+      - file.name
+    cardSize: 110
+  - type: cards
+    name: Новый Завет
+    filters:
+      and:
+        - file.folder.contains("Bible-RST/Новый")
+    groupBy:
+      property: formula.Книга
+      direction: ASC
+    order:
+      - file.name
+    cardSize: 110
