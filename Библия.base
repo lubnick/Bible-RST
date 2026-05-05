@@ -1,28 +1,80 @@
 formulas:
-  Книга: file.folder.replace(/.*\//, "")
+  Тест 2: file.folder.replace(/.*\//, "").replace(/^0?([0-9]+)\s*/, "$1. ")
 properties:
   note.book:
+    displayName: Книга
+  formula.Тест 2:
     displayName: Книга
 views:
   - type: cards
     name: Ветхий Завет
     filters:
       and:
-        - file.folder.contains("Bible-RST/Ветхий")
+        - file.folder.contains("Библия RST/Ветхий")
     groupBy:
-      property: formula.Книга
+      property: formula.Тест 2
       direction: ASC
     order:
-      - file.name
-    cardSize: 110
+      - chapter
+    sort:
+      - property: chapter
+        direction: ASC
+    cardSize: 60
   - type: cards
     name: Новый Завет
     filters:
       and:
-        - file.folder.contains("Bible-RST/Новый")
+        - file.folder.contains("Библия RST/Новый")
     groupBy:
-      property: formula.Книга
+      property: formula.Тест 2
       direction: ASC
     order:
-      - file.name
-    cardSize: 110
+      - chapter
+    sort:
+      - property: chapter
+        direction: ASC
+    cardSize: 50
+    imageAspectRatio: 1
+  - type: cards
+    name: Пятикнижие
+    filters:
+      and:
+        - |-
+          file.name.contains("Быт") ||
+          file.name.contains("Исх") ||
+          file.name.contains("Лев") ||
+          file.name.contains("Чис") ||
+          file.name.contains("Втор")
+        - file.folder.contains("Ветхий Завет")
+    groupBy:
+      property: formula.Тест 2
+      direction: ASC
+    order:
+      - chapter
+    cardSize: 50
+  - type: cards
+    name: Послания Павла
+    filters:
+      and:
+        - |-
+          file.name.contains("Рим") ||
+          file.name.contains("1Кор") ||
+          file.name.contains("2Кор") ||
+          file.name.contains("Гал") ||
+          file.name.contains("Еф") ||
+          file.name.contains("Флп") ||
+          file.name.contains("Кол") ||
+          file.name.contains("1Фес") ||
+          file.name.contains("2Фес") ||
+          file.name.contains("1Тим") ||
+          file.name.contains("2Тим") ||
+          file.name.contains("Тит") ||
+          file.name.contains("Флм") ||
+          file.name.contains("Евр")
+        - file.folder.contains("Новый Завет")
+    groupBy:
+      property: formula.Тест 2
+      direction: ASC
+    order:
+      - chapter
+    cardSize: 50
