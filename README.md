@@ -44,6 +44,10 @@
     padding: 0 !important;
     margin: 0 !important;
 }
+
+.bible .metadata-container {
+    display: none !important;
+}
 ```
 </details>
 После этого закрываем папку, жмём на иконку Обновить и активируем соданный сниппет.
