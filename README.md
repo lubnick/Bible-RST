@@ -71,8 +71,8 @@ let sel = tp.file.selection();
 tR += sel;
 
 if (!sel) {
-new Notice("Вы ничего не выделили!");
-return;
+    new Notice("Вы ничего не выделили!");
+    return;
 }
 
 // 3. Получаем имя файла
@@ -80,25 +80,25 @@ let fileName = tp.file.title;
 let fileParts = fileName.match(/(.+?)\s+(\d+)/);
 
 if (!fileParts) {
-new Notice("Это не файл Библии!");
-return;
+    new Notice("Это не файл Библии!");
+    return;
 }
 
-let book = fileParts[1].trim();
-let chapter = parseInt(fileParts[2]);
+let book = fileParts[1].trim(); 
+let chapter = parseInt(fileParts[2]); 
 
 // 4. Ищем номера стихов в выделении
-let verseRegex = /^v(\d+)/g;
+let verseRegex = /\^v(\d+)/g;
 let matches;
 let verses = [];
 
 while ((matches = verseRegex.exec(sel)) !== null) {
-verses.push(parseInt(matches[1]));
+    verses.push(parseInt(matches[1]));
 }
 
 if (verses.length === 0) {
-new Notice("В выделении нет меток стихов! Захватите конец строки с ^v");
-return;
+    new Notice("В выделении нет меток стихов! Захватите конец строки с ^v");
+    return;
 }
 
 verses.sort((a, b) => a - b);
@@ -106,27 +106,27 @@ let firstVerse = verses[0];
 let lastVerse = verses[verses.length - 1];
 
 // 5. Формируем красивое название (Римлянам 12:6-8)
-let alias = ${book} ${chapter}:${firstVerse};
+let alias = `${book} ${chapter}:${firstVerse}`;
 if (firstVerse !== lastVerse) {
-alias += -${lastVerse};
+    alias += `-${lastVerse}`;
 }
 
 // 6. ОЧИЩАЕМ И ФОРМАТИРУЕМ ТЕКСТ ЦИТАТЫ
 // Удаляем символы ^v... в конце строк (они нужны только в исходнике)
-let cleanText = sel.replace(/\s*^v\d+/g, "");
+let cleanText = sel.replace(/\s*\^v\d+/g, "");
 
 // Разбиваем текст на строки, убираем пустые, к каждой добавляем префикс "> "
 let quoteLines = cleanText.split('\n')
-.filter(line => line.trim().length > 0)
-.map(line => > ${line.trim()})
-.join('\n');
+    .filter(line => line.trim().length > 0)
+    .map(line => `> ${line.trim()}`)
+    .join('\n');
 
 // 7. СОБИРАЕМ ФИНАЛЬНЫЙ БЛОК (CALLOUT)
 // Заголовок выноски со ссылкой (используем #^v для надежности)
-let calloutHeader = >[!quote] [[${fileName}#^v${firstVerse}|${alias}]];
+let calloutHeader = `>[!quote] [[${fileName}#^v${firstVerse}|${alias}]]`;
 
 // Итоговый текст для буфера обмена
-let finalOutput = ${calloutHeader}\n${quoteLines}\n;
+let finalOutput = `${calloutHeader}\n${quoteLines}\n`;
 
 // 8. Копируем в буфер обмена
 await navigator.clipboard.writeText(finalOutput);
