@@ -10,7 +10,7 @@ views:
     name: Ветхий Завет
     filters:
       and:
-        - file.folder.contains("Библия RST/Ветхий")
+        - file.folder.contains("Bible-RST/Ветхий")
     groupBy:
       property: formula.Тест 2
       direction: ASC
@@ -24,7 +24,7 @@ views:
     name: Новый Завет
     filters:
       and:
-        - file.folder.contains("Библия RST/Новый")
+        - file.folder.contains("Bible-RST/Новый")
     groupBy:
       property: formula.Тест 2
       direction: ASC
