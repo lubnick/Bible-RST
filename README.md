@@ -84,7 +84,9 @@ if (!fileParts) {
     return;
 }
 
-let book = fileParts[1].trim(); 
+// ПЫТАЕМСЯ ВЗЯТЬ ПОЛНОЕ НАЗВАНИЕ ИЗ СВОЙСТВА "book"
+// Если свойства нет, берем сокращенное из имени файла
+let book = tp.frontmatter.book || fileParts[1].trim(); 
 let chapter = parseInt(fileParts[2]); 
 
 // 4. Ищем номера стихов в выделении
